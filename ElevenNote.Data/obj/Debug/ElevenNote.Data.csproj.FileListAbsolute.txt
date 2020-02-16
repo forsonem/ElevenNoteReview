@@ -13,3 +13,5 @@ C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.csproj.CopyComplete
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.dll
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.pdb
+C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.Migrations.databaseupdate.resources
+C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Data\obj\Debug\ElevenNote.Data.csproj.GenerateResource.cache
