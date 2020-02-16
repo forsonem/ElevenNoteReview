@@ -12,3 +12,4 @@ C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Models\bi
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Models\obj\Debug\ElevenNote.Models.csproj.CopyComplete
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Models\obj\Debug\ElevenNote.Models.dll
 C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Models\obj\Debug\ElevenNote.Models.pdb
+C:\ElevenFiftyProjects\Learning assistant review\ElevenNote\ElevenNote.Models\obj\Debug\ElevenNote.Models.csprojAssemblyReference.cache
