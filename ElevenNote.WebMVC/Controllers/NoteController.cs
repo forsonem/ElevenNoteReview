@@ -118,9 +118,6 @@ namespace ElevenNote.WebMVC.Controllers
 
         }
 
-
-
-
         private NoteService AccessNoteService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
