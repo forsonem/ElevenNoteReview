@@ -9,7 +9,7 @@ namespace ElevenNote.Models
 {
     public class NoteDetail
     {
-        [Display(Name = "Note ID"]
+        [Display(Name = "Note ID")]
         public int NoteId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

@@ -49,6 +49,14 @@ namespace ElevenNote.WebMVC.Controllers
             
         }
 
+        //GET: Note/Detail
+        public ActionResult Detail (int id)
+        {
+            var service = AccessNoteService();
+            var model = service.GetNoteById(id);
+            return View(model);
+        }
+
         private NoteService AccessNoteService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
