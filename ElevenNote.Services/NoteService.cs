@@ -19,40 +19,20 @@ namespace ElevenNote.Services
 
         //This method below will allow us to see all the notes that belong to a specific user.
 
-
-        public IEnumerable<NoteListItem> GetNotes()
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                var query =
-                    ctx
-                        .Notes
-                        .Where(e => e.OwnerId == _userId)
-                        .Select(
-                            e =>
-                                new NoteListItem
-                                {
-                                    NoteId = e.NoteId,
-                                    Title = e.Title,
-                                    CreatedUtc = e.CreatedUtc
-                                }
-                                );
-                return query.ToArray();
-
-            }
-            
-        }
-
         public bool CreateNote(NoteCreate model)
         {
+            
             var entity =
                 new Note()
                 {
-                    OwnerId = _userId,
+                    OwnerID = _userId,
                     Title = model.Title,
                     Content = model.Content,
-                    CreatedUtc = DateTimeOffset.Now
+                    CreatedUtc = DateTimeOffset.Now,
+                   CategoryVariable = model.CategoryVariable
+                    
                 };
+            
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Notes.Add(entity);
@@ -60,14 +40,14 @@ namespace ElevenNote.Services
             }
         }
 
-        public NoteDetail GetNoteById(int id)
+        public NoteDetail GetNoteById(int noteId)
         {
             using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
                         .Notes
-                        .Single(e => e.NoteId == id && e.OwnerId == _userId);
+                        .Single(e => e.NoteId == noteId && e.OwnerID == _userId);
                 return
                     new NoteDetail
                     {
@@ -78,7 +58,6 @@ namespace ElevenNote.Services
                         ModifiedUtc = entity.ModifiedUtc
                     };
             }
-            
         }
 
         public bool EditNote(NoteEdit model)
@@ -88,7 +67,7 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                         .Notes
-                        .Single(e => e.NoteId == model.NoteId && e.OwnerId == _userId);
+                        .Single(e => e.NoteId == model.NoteId && e.OwnerID == _userId);
 
                 entity.Title = model.Title;
                 entity.Content = model.Content;
@@ -106,11 +85,34 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                         .Notes
-                        .Single(e => e.NoteId == noteId && e.OwnerId == _userId);
+                        .Single(e => e.NoteId == noteId && e.OwnerID == _userId);
 
                 ctx.Notes.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
+            }
+        }
+        public IEnumerable<NoteListItem> GetNotes()
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Notes
+                        .Where(e => e.OwnerID == _userId)
+                        .Select(
+                            e =>
+                                new NoteListItem
+                                {
+                                    NoteId = e.NoteId,
+                                    Title = e.Title,
+                                    CreatedUtc = e.CreatedUtc,
+                                    CategoryID = e.CategoryID,
+                                    CategoryVariable = e.CategoryVariable
+
+                                }
+                                );
+                return query.ToArray();
             }
         }
     }

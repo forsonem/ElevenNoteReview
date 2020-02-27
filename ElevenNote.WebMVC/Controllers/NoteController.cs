@@ -1,4 +1,5 @@
-﻿using ElevenNote.Models;
+﻿using ElevenNote.Data;
+using ElevenNote.Models;
 using ElevenNote.Services;
 using Microsoft.AspNet.Identity;
 using System;
@@ -12,13 +13,15 @@ namespace ElevenNote.WebMVC.Controllers
     [Authorize]
     public class NoteController : Controller
     {
+        ApplicationDbContext _db = new ApplicationDbContext();
+
+
         // GET: Note
         public ActionResult Index()
         {
-            var userId = Guid.Parse(User.Identity.GetUserId()); //sets userId to current user
-            var service = new NoteService(userId); //access service layer using userId
-            var model = service.GetNotes(); //model is now based of the model info puled from the database beimg used in the GetNotes method
-
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new NoteService(userId);
+            var model = service.GetNotes();
             return View(model);
         }
 
@@ -27,15 +30,15 @@ namespace ElevenNote.WebMVC.Controllers
         {
             return View();
         }
+
         //POST: Note/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(NoteCreate model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
+
+            ViewBag.Category = new SelectList(_db.Categories.OrderBy(o => o.CategoryName), "Name", "CategoryName");
             var service = AccessNoteService();
 
             if (service.CreateNote(model))
@@ -74,13 +77,11 @@ namespace ElevenNote.WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, NoteEdit model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            if (!ModelState.IsValid) return View(model);
+            
             if (model.NoteId != id)
             {
-                ModelState.AddModelError("", "id Mismatch");
+                ModelState.AddModelError("", "Id Mismatch");
                 return View(model);
             }
             var service = AccessNoteService();
@@ -124,5 +125,7 @@ namespace ElevenNote.WebMVC.Controllers
             var service = new NoteService(userId);
             return service;
         }
+
+
     }
 }
